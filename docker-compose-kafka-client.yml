@@ -1,0 +1,10 @@
+version: '3'
+# A sample docker compose that can be used to connect
+# to the kafka cluster, included this in your own project.
+services:
+  SERVICE_NAME:
+    image: YOUR_IMAGE
+networks:
+  default:
+    external:
+      name: kafka-docker-compose_kafka
