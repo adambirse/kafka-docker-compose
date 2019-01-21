@@ -6,6 +6,8 @@ services:
       KAFKA_BOOTSTRAP_SERVERS: kafka1:9092
     depends_on:
     - kafka1
+    networks:
+    - kafka
     command: "bash -c 'sleep infinity'"
   zookeeper1:
     image: confluentinc/cp-zookeeper:5.0.0
@@ -17,6 +19,8 @@ services:
       ZOOKEEPER_INIT_LIMIT: 5
       ZOOKEEPER_SYNC_LIMIT: 2
       ZOOKEEPER_SERVERS: "zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888"
+    networks:
+    - kafka
   zookeeper2:
     image: confluentinc/cp-zookeeper:5.0.0
     hostname: zookeeper2
@@ -27,6 +31,8 @@ services:
       ZOOKEEPER_INIT_LIMIT: 5
       ZOOKEEPER_SYNC_LIMIT: 2
       ZOOKEEPER_SERVERS: "zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888"
+    networks:
+    - kafka
   zookeeper3:
     image: confluentinc/cp-zookeeper:5.0.0
     hostname: zookeeper3
@@ -37,6 +43,8 @@ services:
       ZOOKEEPER_INIT_LIMIT: 5
       ZOOKEEPER_SYNC_LIMIT: 2
       ZOOKEEPER_SERVERS: "zookeeper1:2888:3888;zookeeper2:2888:3888;zookeeper3:2888:3888"
+    networks:
+    - kafka
   kafka1:
     image: confluentinc/cp-enterprise-kafka:5.0.0
     hostname: kafka1
@@ -55,6 +63,8 @@ services:
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
       #KAFKA_LOG4J_ROOT_LOGLEVEL: INFO
       KAFKA_JMX_PORT: 9991
+    networks:
+    - kafka
   kafka2:
     image: confluentinc/cp-enterprise-kafka:5.0.0
     hostname: kafka2
@@ -73,6 +83,8 @@ services:
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
       #KAFKA_LOG4J_ROOT_LOGLEVEL: INFO
       KAFKA_JMX_PORT: 9991
+    networks:
+    - kafka
   kafka3:
     image: confluentinc/cp-enterprise-kafka:5.0.0
     hostname: kafka3
@@ -91,3 +103,7 @@ services:
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
       #KAFKA_LOG4J_ROOT_LOGLEVEL: INFO
       KAFKA_JMX_PORT: 9991
+    networks:
+    - kafka
+networks:
+  kafka:
